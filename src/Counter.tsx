@@ -11,10 +11,10 @@ const params = window.location.search.substr(1);
 
 function Counter(props: Props) {
   const leastSignificant = !params.includes("mostSignificant");
+  const all = params.includes("all");
   const [digitElements, setDigitElements] = useState([]);
   const [oldCount, setOldCount] = useState(props.count.toString());
   const [initial, setInitial] = useState(true);
-  const [thin, setThin] = useState(props.thinner);
 
   const animationLength = 400;
 
@@ -31,11 +31,14 @@ function Counter(props: Props) {
     const newNumberArray = newNumber.toString().split("");
     const oldNumberArray = oldCount.split("");
     const newDigits = [];
+
+    const extraClasses = ` ${props.thinner ? "thin" : ""} ${all ? "all" : ""}`;
+
     for (let i = 0; i < newNumberArray.length; i++) {
       if (refresh) {
         console.log("herrree");
         newDigits.push(
-          <div key={i} className={`digit ${props.thinner ? "thin" : ""}`}>
+          <div key={i} className={`digit ${extraClasses}`}>
             {background}
             <div className={"top"}>{newNumberArray[i]}</div>
             <div className={"bottom"}>{newNumberArray[i]}</div>
@@ -43,7 +46,7 @@ function Counter(props: Props) {
         );
       } else if (newNumberArray[i] !== oldNumberArray[i]) {
         newDigits.push(
-          <div key={i} className={`digit ${props.thinner ? "thin" : ""}`}>
+          <div key={i} className={`digit ${extraClasses}`}>
             {background}
 
             <div className={"top"}>{newNumberArray[i]}</div>
@@ -54,7 +57,7 @@ function Counter(props: Props) {
         );
       } else {
         newDigits.push(
-          <div key={i} className={`digit ${props.thinner ? "thin" : ""}`}>
+          <div key={i} className={`digit ${extraClasses}`}>
             {background}
 
             <div className={"top"}>{oldNumberArray[i]}</div>
@@ -88,7 +91,7 @@ function Counter(props: Props) {
     // setThin(true);
   }, [props.thinner]);
 
-  return <div className="container">{digitElements}</div>;
+  return <div className={`container ${all ? "all" : ""}`}>{digitElements}</div>;
 }
 
 export default Counter;

@@ -1,16 +1,27 @@
 :root {
   --screen-height: 1080px;
   --screen-width: 2560px;
+  --all-screen-height: calc(780px);
+  --all-screen-width: calc(2976px);
 
   --digit-margin: 8px;
   --digit-width: calc(var(--screen-width) / 4 - var(--digit-margin) * 2);
-  --thin-digit-width: calc(var(--screen-width) / 5 - var(--digit-margin) * 2);
   --digit-height: calc(var(--screen-height) - var(--digit-margin) * 2 - 100px);
+
+  --all-digit-width: calc(
+    var(--all-screen-width) / 8 - var(--digit-margin) * 2
+  );
+  --all-digit-height: calc(
+    var(--all-screen-height) - var(--digit-margin) * 2 - 100px
+  );
+
+  --thin-digit-width: calc(var(--screen-width) / 5 - var(--digit-margin) * 2);
   --digit-bg-color: #333;
   --digit-bg-color2: #555;
   --digit-border-color: #222;
   --digit-font-color: #ddd;
   --digit-font-size: calc(var(--digit-height) * 0.85);
+  --all-digit-font-size: calc(var(--all-digit-height) * 0.85);
   --thin-font-size: calc(var(--digit-height) * 0.65);
 
   --animation-length: 200ms;
@@ -25,6 +36,11 @@
   justify-content: flex-end;
 }
 
+.container.all {
+  width: var(--all-screen-width);
+  height: var(--all-screen-height);
+}
+
 .digit {
   position: relative;
   margin: var(--digit-margin);
@@ -34,6 +50,11 @@
 
 .thin {
   width: var(--thin-digit-width);
+}
+
+.digit.all {
+  width: var(--all-digit-width);
+  height: var(--all-digit-height);
 }
 
 .thin > * {
@@ -66,6 +87,21 @@
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+}
+
+.all .half,
+.all .top,
+.all .bottom,
+.all .bottom-half,
+.all .bg1,
+.all .bg2,
+.all .bg3,
+.all .bg4 {
+  width: var(--all-digit-width);
+
+  height: var(--all-digit-height);
+
+  font-size: var(--all-digit-font-size);
 }
 
 .bg1 {

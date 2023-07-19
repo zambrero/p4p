@@ -6,14 +6,14 @@ import Counter from "./Counter.tsx";
 const params = window.location.search.substr(1);
 
 function App(props) {
-  const [count, setCount] = useState(localStorage.getItem(params) || "9999");
   const [mostSignificant, setMostSignificant] = useState(
     params.includes("mostSignificant")
   );
 
-  const [thin, setThin] = useState(
-    localStorage.getItem(params + "thin") === "true"
-  );
+  const all = params.includes("all");
+  const [count, setCount] = useState(all ? "????????" : "????");
+
+  const [thin, setThin] = useState(false);
   const inc = useRef(0);
 
   const randomCount = async () => {
@@ -51,15 +51,11 @@ function App(props) {
       setThin(false);
       setCount("????");
     }
+
+    if (all) {
+      setCount(e.TotalItemCount.toString());
+    }
   };
-
-  useEffect(() => {
-    localStorage.setItem(params, count);
-  }, [count]);
-
-  useEffect(() => {
-    localStorage.setItem(params + "thin", thin + "");
-  }, [thin]);
 
   useEffect(() => {
     const nowMillis = new Date().getMilliseconds();
