@@ -1,8 +1,8 @@
 :root {
   --screen-height: 1080px;
   --screen-width: 2560px;
-  --all-screen-height: calc(780px);
-  --all-screen-width: calc(2976px);
+  --all-screen-height: calc(780px / 2);
+  --all-screen-width: calc(2976px / 2);
 
   --digit-margin: 8px;
   --digit-width: calc(var(--screen-width) / 4 - var(--digit-margin) * 2);
