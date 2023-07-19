@@ -25,6 +25,10 @@ function App(props) {
     if (params.includes("debug")) {
       e.TotalItemCount = 99999990 + inc.current;
     }
+    if (all) {
+      setCount(e.TotalItemCount.toString());
+      return;
+    }
     inc.current += 1;
     if (e.TotalItemCount.toString().length === 8) {
       setThin(false);
@@ -50,10 +54,6 @@ function App(props) {
     } else {
       setThin(false);
       setCount("????");
-    }
-
-    if (all) {
-      setCount(e.TotalItemCount.toString());
     }
   };
 
