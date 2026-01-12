@@ -54,7 +54,7 @@ function App(props) {
       setThin(true);
       if (mostSignificant) {
         setCount("*" + e.TotalItemCount.toString().slice(0, 4));
-        setCommaPositions([1]);
+        setCommaPositions([3]);
       } else {
         setCount(e.TotalItemCount.toString().slice(4));
         setCommaPositions([1]);
