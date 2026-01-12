@@ -62,7 +62,7 @@ function App(props) {
     } else if (e.TotalItemCount.toString().length === 10) {
       setThin(true);
       if (mostSignificant) {
-        setCommaPositions([1]);
+        setCommaPositions([3]);
         setCount(e.TotalItemCount.toString().slice(0, 5));
       } else {
         setCount(e.TotalItemCount.toString().slice(5));
