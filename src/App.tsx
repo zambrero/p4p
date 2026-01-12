@@ -17,6 +17,24 @@ function App(props) {
   const [thin, setThin] = useState(false);
   const inc = useRef(0);
 
+  const schedule3amReload = () => {
+    const now = new Date();
+    const next3am = new Date();
+
+    next3am.setHours(3, 0, 0, 0);
+
+    // if it's already past 3am today, schedule for tomorrow
+    if (now >= next3am) {
+      next3am.setDate(next3am.getDate() + 1);
+    }
+
+    const msUntil3am = next3am.getTime() - now.getTime();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, msUntil3am);
+  };
+
   const randomCount = async () => {
     const ee = await fetch(
       "https://zambrero.xchangefusion.com/api/product/getdonationbyid/2"
@@ -61,6 +79,7 @@ function App(props) {
       randomCount();
     }, 2000);
     randomCount();
+    schedule3amReload();
   }, []);
 
   return (
