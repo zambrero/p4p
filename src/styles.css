@@ -194,12 +194,52 @@
   }
 }
 
-.easter {
-  color: #4b4b4b;
-  font-size: 5px;
+.digit-image-frame {
+  border-radius: 50px;
+  margin: 30px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.digit-image {
+  width: 100%;
+  height: 100%;
+  /* object-fit: contain;
+  display: block; */
+
+  transform-origin: center;
+  /* will-change: transform; */
+
+  animation: digitZoomBounce 25s infinite;
+}
+
+@keyframes digitZoomBounce {
+  /* totally static most of the time */
+  0%,
+  96% {
+    transform: scale(1);
+  }
+
+  /* fast, tight bounce */
+  98% {
+    transform: scale(1.08);
+  }
+  98.5% {
+    transform: scale(1);
+  }
+  99.25% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.comma {
   position: absolute;
+  font-size: calc(var(--thin-font-size) * 0.75);
+  top: 140px;
+  right: -0px;
+  color: var(--digit-font-color);
   z-index: 1000;
-  top: 1026px;
-  left: 1947px;
-  width: 100px;
 }

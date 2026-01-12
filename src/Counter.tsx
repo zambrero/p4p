@@ -5,6 +5,7 @@ import "./styles.css";
 type Props = {
   count: number;
   thinner: boolean;
+  commaPositions: number[];
 };
 
 const params = window.location.search.substr(1);
@@ -27,6 +28,12 @@ function Counter(props: Props) {
     </>
   );
 
+  const logoImage = (
+    <div class="digit-image-frame">
+      <img src="logo.png" alt="*" className="digit-image" draggable={false} />
+    </div>
+  );
+
   const setDigitElementsFunc = (newNumber: number, refresh?: boolean) => {
     const newNumberArray = newNumber.toString().split("");
     const oldNumberArray = oldCount.split("");
@@ -35,13 +42,28 @@ function Counter(props: Props) {
     const extraClasses = ` ${props.thinner ? "thin" : ""} ${all ? "all" : ""}`;
 
     for (let i = 0; i < newNumberArray.length; i++) {
+      const comma = (
+        <div key={i + "comma"} className={`comma`}>
+          ,
+        </div>
+      );
+      if (newNumberArray[i] === "*") {
+        newDigits.push(<>{logoImage}</>);
+        continue;
+      }
+
+      const includeComma = props.commaPositions.includes(i);
       if (refresh) {
         console.log("herrree");
         newDigits.push(
           <div key={i} className={`digit ${extraClasses}`}>
             {background}
             <div className={"top"}>{newNumberArray[i]}</div>
-            <div className={"bottom"}>{newNumberArray[i]}</div>
+            <div className={"bottom"}>
+              {newNumberArray[i]}
+
+              {includeComma ? comma : null}
+            </div>
           </div>
         );
       } else if (newNumberArray[i] !== oldNumberArray[i]) {
@@ -50,9 +72,17 @@ function Counter(props: Props) {
             {background}
 
             <div className={"top"}>{newNumberArray[i]}</div>
-            <div className={"bottom"}>{oldNumberArray[i]}</div>
+            <div className={"bottom"}>
+              {oldNumberArray[i]}
+
+              {includeComma ? comma : null}
+            </div>
             <div className={"half"}>{oldNumberArray[i]}</div>
-            <div className={"bottom-half"}>{newNumberArray[i]}</div>
+            <div className={"bottom-half"}>
+              {newNumberArray[i]}
+
+              {includeComma ? comma : null}
+            </div>
           </div>
         );
       } else {
@@ -61,7 +91,10 @@ function Counter(props: Props) {
             {background}
 
             <div className={"top"}>{oldNumberArray[i]}</div>
-            <div className={"bottom"}>{oldNumberArray[i]}</div>
+            <div className={"bottom"}>
+              {oldNumberArray[i]}
+              {includeComma ? comma : null}
+            </div>
           </div>
         );
       }
@@ -85,7 +118,7 @@ function Counter(props: Props) {
     setTimeout(() => {
       setDigitElementsFunc(props.count, true);
     }, animationLength + 50);
-  }, [props.count]);
+  }, [props.count, props.commaPositions]);
 
   useEffect(() => {
     // setThin(true);

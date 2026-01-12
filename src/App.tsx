@@ -12,6 +12,7 @@ function App(props) {
 
   const all = params.includes("all");
   const [count, setCount] = useState(all ? "????????" : "????");
+  const [commaPositions, setCommaPositions] = useState([]);
 
   const [thin, setThin] = useState(false);
   const inc = useRef(0);
@@ -27,29 +28,27 @@ function App(props) {
     }
     if (all) {
       setCount(e.TotalItemCount.toString());
+      setCommaPositions([1, 5]);
       return;
     }
     inc.current += 1;
-    if (e.TotalItemCount.toString().length === 8) {
-      setThin(false);
-      if (mostSignificant) {
-        setCount(e.TotalItemCount.toString().slice(0, 4));
-      } else {
-        setCount(e.TotalItemCount.toString().slice(4));
-      }
-    } else if (e.TotalItemCount.toString().length === 9) {
+    if (e.TotalItemCount.toString().length === 9) {
       setThin(true);
       if (mostSignificant) {
-        setCount(e.TotalItemCount.toString().slice(0, 4));
+        setCount("*" + e.TotalItemCount.toString().slice(0, 4));
+        setCommaPositions([1]);
       } else {
         setCount(e.TotalItemCount.toString().slice(4));
+        setCommaPositions([1]);
       }
     } else if (e.TotalItemCount.toString().length === 10) {
       setThin(true);
       if (mostSignificant) {
+        setCommaPositions([1]);
         setCount(e.TotalItemCount.toString().slice(0, 5));
       } else {
         setCount(e.TotalItemCount.toString().slice(5));
+        setCommaPositions([1]);
       }
     } else {
       setThin(false);
@@ -58,17 +57,15 @@ function App(props) {
   };
 
   useEffect(() => {
-    const nowMillis = new Date().getMilliseconds();
-    setTimeout(() => {
-      setInterval(() => {
-        randomCount();
-      }, 2000);
-    }, 1000 - nowMillis);
+    setInterval(() => {
+      randomCount();
+    }, 2000);
+    randomCount();
   }, []);
 
   return (
     <div className="body">
-      <Counter count={count} thinner={thin} />
+      <Counter count={count} thinner={thin} commaPositions={commaPositions} />
     </div>
   );
 }
