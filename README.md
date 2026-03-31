@@ -25,3 +25,5 @@ http://192.241.254.136/p4p/?all
 # Deployment
 
 This is currently deployed to a Digital Ocean server (192.241.254.136), but can easily be deployed to any server, or GitHub Pages.
+
+scp -r build/\* root@192.241.254.136:/var/www/html/p4p
